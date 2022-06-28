@@ -34,8 +34,8 @@ end
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  gem 'retrieva-cop', require: false
   gem 'pry-byebug'
+  gem 'retrieva-cop', require: false
 end
 
 group :test do
