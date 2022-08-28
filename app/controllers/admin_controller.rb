@@ -5,7 +5,7 @@ class AdminController < ApplicationController
   include TasksHelper
   def index
     # preloadを使用してN+1問題に対応
-    @users = User.preload(:categories, :tasks).all
+    @users = User.preload(:categories, :tasks).all.order(:id)
   end
 
   def show
