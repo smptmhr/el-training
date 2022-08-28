@@ -5,7 +5,7 @@ module AdminHelper
 
     return unless (admin_user_num == 1) && (user.role == '管理')
 
-    flash[:danger] = '管理ユーザが0人になってしまうため、その操作はできません。'
+    flash[:danger] = I18n.t 'admin_user_must_exist'
     redirect_to request.referer
   end
 end
