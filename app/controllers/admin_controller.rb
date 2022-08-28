@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
-  # TODO: ユーザにロールを追加後、before_actionでcurrent_userがadminユーザか確認
+  before_action :logged_in_user
+  before_action :admin_user?
 
   include TasksHelper
   def index
@@ -10,5 +11,14 @@ class AdminController < ApplicationController
   def show
     # preloadを使用してN+1問題に対応
     @user = User.preload(:categories, :tasks).find(params[:id])
+  end
+
+  private
+
+  def admin_user?
+    return unless current_user.role != '管理ユーザ'
+
+    flash[:danger] = I18n.t 'permission_denied'
+    redirect_to root_url
   end
 end
