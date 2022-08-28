@@ -16,7 +16,7 @@ class AdminController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    
+
     # 管理→一般 or 一般→管理
     changed_role = (@user.role == '管理' ? '一般' : '管理')
     if @user.update(role: changed_role)
