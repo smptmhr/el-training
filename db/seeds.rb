@@ -29,5 +29,5 @@ admin_user = User.create(name: 'admin_user',
                          password_confirmation: 'password',
                          activated: true,
                          activated_at: Time.zone.now,
-                         role: '管理ユーザ')
+                         role: '管理')
 Category.create(name: Category::DEFAULT_CREATED_CATEGORY, user: admin_user)
