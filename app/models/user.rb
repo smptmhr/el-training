@@ -21,6 +21,11 @@ class User < ApplicationRecord
 
   before_save { self.email = email.downcase }
 
+  enum role: {
+    '管理ユーザ': 0,
+    '一般ユーザ': 1
+  }
+
   def activate
     update(activated: true, activated_at: Time.zone.now)
   end
