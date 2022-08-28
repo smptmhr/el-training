@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: %i(edit update show destroy)
   before_action :check_user_permission, only: %i(edit update show)
+  before_action :admin_user_exist?, only: :destroy
   def new
     @user = User.new
   end

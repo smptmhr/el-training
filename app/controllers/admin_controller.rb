@@ -36,13 +36,4 @@ class AdminController < ApplicationController
     flash[:danger] = I18n.t 'permission_denied'
     redirect_to root_url
   end
-
-  def admin_user_exist?
-    user = User.find(params[:id])
-    admin_user_num = User.where(role: '管理').size
-
-    return unless (admin_user_num == 1) && (user.role == '管理')
-    flash[:danger] = '管理ユーザが0人になってしまうため、区分を変更できません'
-    redirect_to admin_path(user)
-  end
 end
