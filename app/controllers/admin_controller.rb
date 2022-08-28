@@ -16,7 +16,7 @@ class AdminController < ApplicationController
   private
 
   def admin_user?
-    return unless current_user.role != '管理ユーザ'
+    return unless current_user.role != '管理'
 
     flash[:danger] = I18n.t 'permission_denied'
     redirect_to root_url

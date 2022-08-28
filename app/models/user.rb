@@ -22,8 +22,8 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
 
   enum role: {
-    '管理ユーザ': 0,
-    '一般ユーザ': 1
+    '管理': 0,
+    '一般': 1
   }
 
   def activate
