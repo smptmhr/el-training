@@ -13,6 +13,21 @@ class AdminController < ApplicationController
     @user = User.preload(:categories, :tasks).find(params[:id])
   end
 
+  def update
+    @user = User.find(params[:id])
+
+    # 一般 → 管理
+    # 管理 → 一般
+    changed_role = (@user.role == '管理' ? '一般' : '管理')
+
+    if @user.update(role: changed_role)
+      flash[:success] = I18n.t 'user_update_success'
+    else
+      flash[:danger] = I18n.t 'user_update_failed'
+    end
+    redirect_to admin_path(@user)
+  end
+
   private
 
   def admin_user?

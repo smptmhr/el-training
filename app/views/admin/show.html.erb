@@ -15,6 +15,7 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">認証</th>
+      <th scope="col">ユーザ区分</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">カテゴリ数</th>
@@ -29,6 +30,9 @@
       <% else %>
         <td class="align-middle">ー</td>
       <% end %>
+      <td class="align-middle">
+        <%= button_to @user.role, admin_path(@user), method: :patch, class: "btn btn-link" %>
+      </td>
       <td class="align-middle"><%= @user.name %></td>
       <td class="align-middle"><%= @user.email %></td>
       <td class="align-middle"><%= @user.categories.size %></td>
