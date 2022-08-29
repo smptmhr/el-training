@@ -83,7 +83,7 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     user_name: 'el.task.management@gmail.com',
-    password: ENV['GOOGLE_APP_PASSWORD'],
+    password: ENV.fetch('GOOGLE_APP_PASSWORD', nil),
     domain: 'gmail.com',
     address: 'smtp.gmail.com',
     port: 587,
