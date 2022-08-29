@@ -38,7 +38,7 @@ class TasksController < ApplicationController
     sorted_tasks  = filtered_tasks.order("#{@sort_by} #{@direction}")
 
     # ページネーション
-    @tasks        = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
+    @tasks = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
   end
 
   def destroy
