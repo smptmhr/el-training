@@ -14,11 +14,25 @@
   </head>
 
   <body>
-    <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <% if logged_in? %>
+        <div class="row">
+          <span><%= link_to I18n.t('create_task'),      new_task_url,   class: "btn btn-primary" %></span>
+          <span><%= link_to I18n.t('categories_index'), categories_url, class: "btn btn-primary" %></span>
+          <span><%= button_to "Log out", logout_path, method: :delete,  class: "btn btn-danger"  %></span>
+        </div>
+      <% end %>
+    </header>
 
     <div class="container">
+      <div class="row">
+        <h2><%= yield(:page_title) %></h2>
+      </div>
+
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+
       <%= yield %>
     </div>
 
