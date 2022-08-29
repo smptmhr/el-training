@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe 'admin page', type: :system do
   let(:admin_user) {
     create(:user, name: 'admin',
-                  email: 'admin@example.com')
+                  email: 'admin@example.com',
+                  role: '管理')
   }
   before do
     5.times do |user_idx|
@@ -12,12 +13,12 @@ RSpec.describe 'admin page', type: :system do
                     password: 'password',
                     password_confirmation: 'password')
     end
-    login_as(admin_user)
   end
 
   describe 'adminページトップ' do
     before do
-      visit admin_index_path
+      login_as(admin_user)
+      find('.admin_index_link').click
     end
 
     context '/adminにアクセスしたとき' do
@@ -51,11 +52,12 @@ RSpec.describe 'admin page', type: :system do
   end
 
   describe 'adminページ詳細' do
-    context 'adminページトップでユーザ名を押したとき' do
-      before do
-        visit admin_index_path
-      end
+    before do
+      login_as(admin_user)
+      find('.admin_index_link').click
+    end
 
+    context 'adminページトップでユーザ名を押したとき' do
       it '詳細ページが表示される' do
         click_on 'user_0'
         expect(page).to have_content 'ユーザ情報'
@@ -66,11 +68,8 @@ RSpec.describe 'admin page', type: :system do
 
     context '削除ボタンを押したとき' do
       it 'ユーザが削除される' do
-        # 削除するユーザ
-        id = User.find_by(name: 'user_0').id
-
-        # 詳細ページへ移動
-        visit admin_path(id)
+        # 削除するユーザのページへ移動
+        click_on 'user_0'
 
         # ユーザに割り当てられた削除ボタンを押す
         click_on 'ユーザを削除'
