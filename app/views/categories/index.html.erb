@@ -1,9 +1,5 @@
 <% provide(:page_title, Category.model_name.human) %>
 
-<div>
-  <%= link_to I18n.t('tasks_index'), tasks_url %>
-</div>
-
 <%= form_for(@category) do |f| %>
   <%= render 'shared/category_error_msg' %>
   <%= f.label      :name %>
