@@ -23,6 +23,13 @@
                 class:"btn btn-danger"%>
   </span>
   <% end %>
+  <% if current_user.role == '管理' %>
+  <span>
+    <%= link_to "ユーザ管理",
+                admin_index_path,
+                class:"btn btn-warning admin_index_link"%>
+  </span>
+  <% end %>
 </div>
 
 <br>
