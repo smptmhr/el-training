@@ -27,8 +27,7 @@ class TasksController < ApplicationController
 
     # タスクの検索
     searched_tasks = tasks.search_task(params[:search], params[:search_option])
-    @shown_search_placeholder = params[:search].presence || 'タスク名'
-    @shown_search_option = params[:search_option].presence || 'perfect_match'
+    update_seach_item_status
 
     # タスクのフィルタリング
     update_filter_params
@@ -95,6 +94,11 @@ class TasksController < ApplicationController
     else
       task
     end
+  end
+
+  def update_seach_item_status
+    @shown_search_placeholder = params[:search].presence || 'タスク名'
+    @shown_search_option = params[:search_option].presence || 'perfect_match'
   end
 
   def update_filter_params
