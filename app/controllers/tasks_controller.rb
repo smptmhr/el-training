@@ -21,8 +21,6 @@ class TasksController < ApplicationController
     @task = find_task_with_err_handling(params[:id])
   end
 
-  # TODO: タスクのソートをメソッド分割
-  # rubocop:disable Metrics/AbcSize
   def index
     # 現在ログイン中のユーザのタスクを取得
     tasks = current_user.tasks.preload(:category).all # N+1対策でpreloadを使用
@@ -37,12 +35,12 @@ class TasksController < ApplicationController
     filtered_tasks = searched_tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
     # タスクのソート(デフォルトは作成日の昇順)
-    @sort_by      = params[:sort].presence      || 'created_at'
-    @direction    = params[:direction].presence || 'ASC'
+    update_sorting_params
     sorted_tasks  = filtered_tasks.order("#{@sort_by} #{@direction}")
+
+    # ページネーション
     @tasks        = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def destroy
     @task = find_task_with_err_handling(params[:id])
@@ -109,6 +107,11 @@ class TasksController < ApplicationController
       @filter_priority = params.dig(:filter, :priority)
       @filter_progress = params.dig(:filter, :progress)
     end
+  end
+
+  def update_sorting_params
+    @sort_by      = params[:sort].presence      || 'created_at'
+    @direction    = params[:direction].presence || 'ASC'
   end
 
   def filter_params_all_blank?
