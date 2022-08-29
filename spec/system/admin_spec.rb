@@ -15,6 +15,24 @@ RSpec.describe 'admin page', type: :system do
     end
   end
 
+  describe 'adminページのアクセス権限' do
+    context '管理ユーザでログインしたとき' do
+      it 'adminページへのリンクがページに存在する' do
+        login_as(admin_user)
+        expect(page).to have_content('ユーザ管理')
+      end
+    end
+
+    context '一般ユーザでログインしたとき' do
+      let(:general_user) { User.find_by(name: 'user_0') }
+
+      it 'adminページへのリンクはページに存在しない' do
+        login_as(general_user)
+        expect(page).not_to have_content('ユーザ管理')
+      end
+    end
+  end
+
   describe 'adminページトップ' do
     before do
       login_as(admin_user)
