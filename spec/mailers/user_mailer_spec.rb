@@ -8,7 +8,7 @@ RSpec.describe UserMailer, type: :mailer do
     it '宛先が正常である' do
       expect(mail.subject).to eq(I18n.t('account_authentication'))
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(['el.task.management@gmail.com'])
+      expect(mail.from).to eq([ApplicationMailer::APP_MAIL_ADDRESS])
     end
 
     it 'アクティベーショントークンが含まれている' do
