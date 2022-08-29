@@ -1,4 +1,4 @@
-<h1><%= I18n.t('user_index') %></h1>
+<% provide(:page_title, I18n.t('user_index')) %>
 
 <ul class="users">
   <% @users.each do |user| %>
