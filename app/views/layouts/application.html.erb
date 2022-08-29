@@ -17,10 +17,11 @@
     <header class="navbar navbar-fixed-top navbar-inverse">
       <% if logged_in? %>
         <div class="row">
-          <span><%= link_to I18n.t('task_index'),       tasks_url,      class: "btn btn-info" %></span>
-          <span><%= link_to I18n.t('create_task'),      new_task_url,   class: "btn btn-primary" %></span>
-          <span><%= link_to I18n.t('categories_index'), categories_url, class: "btn btn-primary" %></span>
-          <span><%= button_to "Log out", logout_path, method: :delete,  class: "btn btn-danger"  %></span>
+          <span><%= link_to I18n.t('task_index'),       tasks_url,       class: "btn btn-info" %></span>
+          <span><%= link_to I18n.t('create_task'),      new_task_url,    class: "btn btn-primary" %></span>
+          <span><%= link_to I18n.t('categories_index'), categories_url,  class: "btn btn-primary" %></span>
+          <span><%= link_to "マイページ",   user_url(current_user),       class: "btn btn-warning"  %></span>
+          <span><%= button_to "Log out",  logout_path, method: :delete,  class: "btn btn-danger"  %></span>
         </div>
       <% end %>
     </header>
