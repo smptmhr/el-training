@@ -96,12 +96,12 @@ class TasksController < ApplicationController
     end
   end
 
-  def update_seach_item_status
+  def current_seach_item_status
     @shown_search_placeholder = params[:search].presence || 'タスク名'
     @shown_search_option = params[:search_option].presence || 'perfect_match'
   end
 
-  def update_filter_params
+  def current_filter_params
     if filter_params_all_blank?
       # 検索項目が空のとき、全ての項目にチェックを入れる
       @filter_priority = Task.priorities
@@ -113,7 +113,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def update_sorting_params
+  def current_sorting_params
     @sort_by      = params[:sort].presence      || 'created_at'
     @direction    = params[:direction].presence || 'ASC'
   end
