@@ -123,5 +123,23 @@ RSpec.describe 'admin page', type: :system do
         expect(user.reload.role).to eq('管理')
       end
     end
+
+    context '管理ユーザが一人のとき' do
+      it '管理ユーザ(自分)の区分を変更できない' do
+        # 管理ユーザが一人であることを確認
+        admin_num = User.where(role: '管理').size
+        expect(admin_num).to eq(1)
+
+        click_on admin_user.name
+
+        click_on '管理'
+
+        # エラーメッセージが出力される
+        expect(page).to have_content('管理ユーザが0人になってしまうため、その操作はできません')
+
+        # 管理ユーザのままである
+        expect(admin_user.reload.role).to eq('管理')
+      end
+    end
   end
 end
