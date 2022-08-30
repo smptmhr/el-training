@@ -52,9 +52,13 @@ class UsersController < ApplicationController
       flash[:danger] = I18n.t 'user_delete_failed'
     end
 
-    # TODO: adminユーザでログインしてたらユーザ管理一覧に、
-    # TODO それ以外ならroot_urlにリダイレクト
-    redirect_to root_url
+    # 管理ユーザ → ユーザ管理一覧
+    # 一般ユーザ → root_url
+    if current_user.role == '管理'
+      redirect_to admin_index_url
+    else
+      redirect_to root_url
+    end
   end
 
   private
