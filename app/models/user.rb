@@ -25,10 +25,6 @@ class User < ApplicationRecord
     update(activated: true, activated_at: Time.zone.now)
   end
 
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
-  end
-
   # トークンがダイジェストに一致したらtrue
   def authenticated?(token)
     digest = self.activation_digest
