@@ -27,14 +27,14 @@ class TasksController < ApplicationController
 
     # タスクの検索
     searched_tasks = tasks.search_task(params[:search], params[:search_option])
-    update_seach_item_status
+    current_seach_item_status
 
     # タスクのフィルタリング
-    update_filter_params
+    current_filter_params
     filtered_tasks = searched_tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
     # タスクのソート(デフォルトは作成日の昇順)
-    update_sorting_params
+    current_sorting_params
     sorted_tasks = filtered_tasks.order("#{@sort_by} #{@direction}")
 
     # ページネーション
