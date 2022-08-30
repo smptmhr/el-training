@@ -105,5 +105,23 @@ RSpec.describe 'admin page', type: :system do
         expect(User.find_by(name: delete_user_name)).to be_nil
       end
     end
+
+    context 'ユーザ区分を押したとき' do
+      it 'ユーザ区分が変更される' do
+        user = User.find_by(name: 'user_0') # 一般ユーザ
+
+        # 削除するユーザのページへ移動
+        click_on user.name
+
+        # ユーザ区分をクリック
+        click_on '一般'
+
+        # 更新成功のメッセージが表示される
+        expect(page).to have_content('ユーザ情報を更新しました')
+
+        # 管理ユーザに変更されている
+        expect(user.reload.role).to eq('管理')
+      end
+    end
   end
 end
