@@ -62,10 +62,10 @@ RSpec.describe 'admin page', type: :system do
         expect(page.accept_confirm).to eq '本当に削除しますか?'
 
         # 削除の成功のメッセージが表示される
-        expect(page).to     have_content('ユーザを削除しました')
+        expect(page).to have_content('ユーザを削除しました')
 
-        # 削除されたユーザはadminページからも消える
-        expect(page).not_to have_content(delete_user_name)
+        # ユーザは削除されている
+        expect(User.find_by(name: delete_user_name)).to be_nil
       end
     end
   end
@@ -87,8 +87,10 @@ RSpec.describe 'admin page', type: :system do
 
     context '削除ボタンを押したとき' do
       it 'ユーザが削除される' do
+        delete_user_name = 'user_0'
+
         # 削除するユーザのページへ移動
-        click_on 'user_0'
+        click_on delete_user_name
 
         # ユーザに割り当てられた削除ボタンを押す
         click_on 'ユーザを削除'
@@ -98,6 +100,9 @@ RSpec.describe 'admin page', type: :system do
 
         # 削除の成功のメッセージが表示される
         expect(page).to have_content('ユーザを削除しました')
+
+        # ユーザは削除されている
+        expect(User.find_by(name: delete_user_name)).to be_nil
       end
     end
   end
