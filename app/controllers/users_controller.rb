@@ -61,12 +61,12 @@ class UsersController < ApplicationController
                                  :password_confirmation)
   end
 
-  # ログイン中のユーザが正しいか確認
+  # 自分以外のユーザ情報の編集を許可しない
   def check_user_permission
     user_to_edit = User.find(params[:id])
-    return if user_to_edit == current_user # 正しいユーザ
+    return if user_to_edit == current_user # 権限あり
 
-    flash[:danger] = I18n.t 'permission denied' # 正しくないユーザ
+    flash[:danger] = I18n.t 'permission denied' # 異なるユーザ、権限なし
     redirect_to root_url
   end
 end
