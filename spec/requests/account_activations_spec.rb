@@ -7,10 +7,14 @@ RSpec.describe 'AccountActivations', type: :request do
     end
 
     let(:user_params) {
-      { user: { name: 'test user',
-                email: 'test_user@example.com',
-                password: 'password',
-                password_confirmation: 'password' } }
+      {
+        user: {
+          name: 'test user',
+          email: 'test_user@example.com',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+      }
     }
 
     context 'ユーザ情報をPOSTしたとき' do
