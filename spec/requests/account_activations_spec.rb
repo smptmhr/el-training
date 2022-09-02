@@ -20,8 +20,8 @@ RSpec.describe 'AccountActivations', type: :request do
     context 'ユーザ情報をPOSTしたとき' do
       it 'メールが送信される' do
         expect {
-          post users_path, params: user_params                   # ユーザ情報をPOSTすると
-        }.to change { ActionMailer::Base.deliveries.size }.by(1) # メールが1件送信される
+          post users_path, params: user_params                           # ユーザ情報をPOSTすると
+        }.to change { ActionMailer::Base.deliveries.size }.from(0).to(1) # メールが1件送信される
       end
 
       it 'ユーザはまだactivateされていない' do
