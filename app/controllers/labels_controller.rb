@@ -51,7 +51,7 @@ class LabelsController < ApplicationController
 
   def find_label_with_err_handling(label_id)
     label = Label.find_by(id: label_id)
-    if label.nil?
+    if label.blank?
       flash[:danger] = I18n.t 'label_not_exist'
       return redirect_to labels_url
     end
