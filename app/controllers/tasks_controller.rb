@@ -21,31 +21,28 @@ class TasksController < ApplicationController
     @task = find_task_with_err_handling(params[:id])
   end
 
-  # TODO: タスクのソートをメソッド分割
-  # rubocop:disable Metrics/AbcSize
   def index
     # 現在ログイン中のユーザのタスクを取得
     tasks = current_user.tasks.preload(:category).all # N+1対策でpreloadを使用
 
     # タスクの検索
     searched_tasks = tasks.search_task(params[:search], params[:search_option])
-    @shown_search_placeholder = params[:search].presence || 'タスク名'
-    @shown_search_option = params[:search_option].presence || 'perfect_match'
+    current_search_item_status
 
     # タスクのフィルタリング
-    update_filter_params
+    current_filter_params
     filtered_tasks = searched_tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
     update_label_filter
     filtered_by_label = filtered_tasks.filter_by_label(params[:label_id])
 
     # タスクのソート(デフォルトは作成日の昇順)
-    @sort_by      = params[:sort].presence      || 'created_at'
-    @direction    = params[:direction].presence || 'ASC'
-    sorted_tasks  = filtered_by_label.order("#{@sort_by} #{@direction}")
-    @tasks        = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
+    current_sorting_params
+    sorted_tasks = filtered_by_label.order("#{@sort_by} #{@direction}")
+
+    # ページネーション
+    @tasks = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def destroy
     @task = find_task_with_err_handling(params[:id])
@@ -103,7 +100,12 @@ class TasksController < ApplicationController
     end
   end
 
-  def update_filter_params
+  def current_search_item_status
+    @shown_search_placeholder = params[:search].presence || 'タスク名'
+    @shown_search_option = params[:search_option].presence || 'perfect_match'
+  end
+
+  def current_filter_params
     if filter_params_all_blank?
       # 検索項目が空のとき、全ての項目にチェックを入れる
       @filter_priority = Task.priorities
@@ -118,6 +120,11 @@ class TasksController < ApplicationController
   def update_label_filter
     label = Label.find_by(id: params[:label_id])
     @filter_label = label.present? ? label.name : '選択してください'
+  end
+
+  def current_sorting_params
+    @sort_by      = params[:sort].presence      || 'created_at'
+    @direction    = params[:direction].presence || 'ASC'
   end
 
   def filter_params_all_blank?
