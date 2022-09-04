@@ -119,7 +119,7 @@ class TasksController < ApplicationController
 
   def update_label_filter
     label = Label.find_by(id: params[:label_id])
-    @filter_label = label.present? ? label.name : '選択してください'
+    @filter_label = label&.name.presence || '選択してください'
   end
 
   def current_sorting_params
