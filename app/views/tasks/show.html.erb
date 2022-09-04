@@ -1,8 +1,5 @@
-<div class="row">
-  <div class="col-4">
-    <h1><%= @task.name %></h1>
-  </div>
-</div>
+<% provide(:page_title, @task.name) %>
+
 <span><%= link_to  I18n.t('back_to_index'), tasks_url     , class:"btn btn-primary" %></span>
 <span><%= link_to  I18n.t('edit'),          edit_task_path, class:"btn btn-primary" %></span>
 <span>
