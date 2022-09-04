@@ -1,31 +1,4 @@
-<div class="row">
-    <h1><%= I18n.t('task_index') %></h1>
-</div>
-
-<br>
-
-<div class="row">
-  <span>
-    <%= link_to I18n.t('create_task'),
-                new_task_url,
-                class:"btn btn-primary" %>
-  </span>
-  <span>
-    <%= link_to I18n.t('categories_index'),
-                categories_url,
-                class:"btn btn-primary" %>
-  </span>
-  <% if logged_in? %>
-  <span>
-    <%= button_to "Log out",
-                logout_path,
-                method: :delete,
-                class:"btn btn-danger"%>
-  </span>
-  <% end %>
-</div>
-
-<br>
+<% provide(:page_title, I18n.t('task_index')) %>
 
 <div class="row border task-search">
   <div class="col-6">
