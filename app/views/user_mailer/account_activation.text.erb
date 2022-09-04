@@ -1,0 +1,4 @@
+<%= @user.name %>さん
+
+ユーザ認証を行うには下記のURLをクリックしてください。
+<%= edit_account_activation_url(@user.activation_token,email: @user.email)%>

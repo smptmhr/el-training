@@ -1,0 +1,8 @@
+<h1>タスク管理アプリ</h1>
+
+<p><%= @user.name %>さん</p>
+
+<p>ユーザ認証を行うには下記のURLをクリックしてください。</p>
+<%= link_to "認証する",
+            edit_account_activation_url(@user.activation_token,
+                                        email: @user.email)%>
