@@ -1,29 +1,41 @@
-<h1><%= Label.model_name.human %></h1>
+<% provide(:page_title, Label.model_name.human) %>
 
-<div>
-  <%= link_to I18n.t('tasks_index'), tasks_url %>
+<div class = "container">
+  <div class="label-form">
+    <%= form_for(@label) do |f| %>
+
+      <div class="row">
+        <%= f.text_field :name, value: "新規ラベル名", class: 'form-control name_field item' %>
+        <%= f.submit '作成', class: "btn btn-primary item" %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<%= form_for(@label) do |f| %>
-  <%= f.label      :name %>
-  <%= f.text_field :name, class: 'form-control' %>
-
-  <%= f.submit '作成', class: "btn btn-primary" %>
-<% end %>
-
-<ul class="labels">
-  <% @labels.each do |l| %>
-    <div>
-      <span>
-        <%= l.name %>
-      </span>
-      <span>
-        <%= link_to '名前を変更', edit_label_path(l), class: "edit_label_#{l.id}"%>
-      </span>
-      <span>
-        <%= button_to '削除', l, method: :delete,class: "delete_label_#{l.id}",
-                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
-      </span>
-    </div>
-  <% end %>
-</ul>
+<div class = "container">
+  <div class = "row">
+    <table class="table labels">
+      <thead>
+        <tr>
+          <th scope="col">ラベル名</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @labels.each do |l| %>
+          <tr>
+            <td class="align-middle"><%= l.name %></td>
+            <td class="align-middle">
+              <%= link_to '名前を変更', edit_label_path(l), class: "edit_label_#{l.id} btn btn-link"%>
+            </td>
+            <td class="align-middle">
+              <%= button_to '削除', l, method: :delete,class: "delete_label_#{l.id} btn btn-link",
+                          form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table> 
+  </div>
+</div>
