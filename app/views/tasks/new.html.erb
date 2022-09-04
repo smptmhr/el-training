@@ -1,8 +1,8 @@
 <% provide(:button_text, "Create") %>
 <% provide(:cancel_link_text, I18n.t('cancel_create')) %>
 <% provide(:cancel_link, tasks_url) %>
+<% provide(:page_title, I18n.t('task_create')) %>
 
-<h1><%= I18n.t('task_create') %></h1>
 <div>
   <%= render 'form' %>
 </div>
