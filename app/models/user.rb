@@ -30,26 +30,6 @@ class User < ApplicationRecord
     update(activated: true, activated_at: Time.zone.now)
   end
 
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
-  end
-
-  # ランダムな22文字のトークンを返す
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
-
-  # 渡された文字列のハッシュ値を返す
-  def self.digest(string)
-    # ハッシュ生成のコスト(＝安全性) テスト環境:低, 本番環境:高
-    cost = if ActiveModel::SecurePassword.min_cost
-             BCrypt::Engine::MIN_COST
-           else
-             BCrypt::Engine.cost
-           end
-    BCrypt::Password.create(string, cost:)
-  end
-
   # トークンがダイジェストに一致したらtrue
   def authenticated?(token)
     digest = self.activation_digest
@@ -65,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def create_activation_digest
-    self.activation_token  = User.new_token
-    self.activation_digest = User.digest(activation_token)
+    self.activation_token  = Security.new_token
+    self.activation_digest = Security.digest(activation_token)
   end
 end

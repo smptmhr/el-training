@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+
   resources :tasks
   resources :users
   resources :categories, only: %i(index create destroy edit update)

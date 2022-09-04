@@ -73,17 +73,21 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # 本番環境でMailgunを使用するための設定
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
+  # 本番環境ではgmailからメールを送る
   host = 'el-task-management.herokuapp.com'
   config.action_mailer.default_url_options = { host: }
-  ActionMailer::Base.smtp_settings = {
-    port: ENV.fetch('MAILGUN_SMTP_PORT', nil),
-    address: ENV.fetch('MAILGUN_SMTP_SERVER', nil),
-    user_name: ENV.fetch('MAILGUN_SMTP_LOGIN', nil),
-    password: ENV.fetch('MAILGUN_SMTP_PASSWORD', nil),
-    domain: host,
-    authentication: :plain
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    user_name: 'el.task.management@gmail.com',
+    password: ENV.fetch('GOOGLE_APP_PASSWORD', nil),
+    domain: 'gmail.com',
+    address: 'smtp.gmail.com',
+    port: 587,
+    authentication: 'login',
+    enable_starttls_auto: true
   }
 end
