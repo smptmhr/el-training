@@ -7,17 +7,21 @@ RSpec.describe 'AccountActivations', type: :request do
     end
 
     let(:user_params) {
-      { user: { name: 'test user',
-                email: 'test_user@example.com',
-                password: 'password',
-                password_confirmation: 'password' } }
+      {
+        user: {
+          name: 'test user',
+          email: 'test_user@example.com',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+      }
     }
 
     context 'ユーザ情報をPOSTしたとき' do
       it 'メールが送信される' do
         expect {
-          post users_path, params: user_params                   # ユーザ情報をPOSTすると
-        }.to change { ActionMailer::Base.deliveries.size }.by(1) # メールが1件送信される
+          post users_path, params: user_params                           # ユーザ情報をPOSTすると
+        }.to change { ActionMailer::Base.deliveries.size }.from(0).to(1) # メールが1件送信される
       end
 
       it 'ユーザはまだactivateされていない' do
