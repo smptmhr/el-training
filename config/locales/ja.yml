@@ -52,6 +52,7 @@ ja:
   back_to_index:    '一覧に戻る'
   tasks_index:      'タスク一覧'
   categories_index: 'カテゴリ一覧'
+  labels_index:     'ラベル一覧'
   delete_task:      'タスクを削除'
   create_task:      'タスクを作成'
   edit:             '編集'
