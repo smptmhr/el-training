@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  attr_accessor :activation_token
+
+  before_save   :downcase_email
+  before_create :create_activation_digest
+
   has_many :categories, dependent: :destroy
   has_many :tasks, through: :categories, dependent: :destroy
   has_many :labels, dependent: :destroy
@@ -16,4 +21,27 @@ class User < ApplicationRecord
                        format: { with: VALID_EMAIL_REGEX }
 
   before_save { self.email = email.downcase }
+
+  def activate
+    update(activated: true, activated_at: Time.zone.now)
+  end
+
+  # トークンがダイジェストに一致したらtrue
+  def authenticated?(token)
+    digest = self.activation_digest
+    return false if digest.nil?
+
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  private
+
+  def downcase_email
+    self.email = email.downcase
+  end
+
+  def create_activation_digest
+    self.activation_token  = Security.new_token
+    self.activation_digest = Security.digest(activation_token)
+  end
 end

@@ -8,5 +8,7 @@
 user = User.create(name: 'user_0',
                    email: 'user_0@example.com',
                    password: 'password',
-                   password_confirmation: 'password')
+                   password_confirmation: 'password',
+                   activated: true,
+                   activated_at: Time.zone.now)
 Category.create(name: Category::DEFAULT_CREATED_CATEGORY, user:)

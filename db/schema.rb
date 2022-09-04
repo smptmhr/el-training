@@ -59,6 +59,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_091725) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at", precision: nil
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
