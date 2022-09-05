@@ -83,6 +83,14 @@
           <span><%= Task.human_attribute_name(:priority) %></span>
           <%= task.priority%>
         </div>
+
+        <div>
+          <% task.labels.each do |l|%>
+            <div class="label_name">
+              <%= l.name %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
   <% end %>
