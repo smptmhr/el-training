@@ -120,7 +120,7 @@ RSpec.describe 'admin page', type: :system do
         expect(page).to have_content('ユーザ情報を更新しました')
 
         # 管理ユーザに変更されている
-        expect(user.reload.role).to eq(:admin)
+        expect(user.reload.role).to eq("admin")
       end
     end
 
@@ -138,7 +138,7 @@ RSpec.describe 'admin page', type: :system do
         expect(page).to have_content('管理ユーザが0人になってしまうため、その操作はできません')
 
         # 管理ユーザのままである
-        expect(admin_user.reload.role).to eq(:admin)
+        expect(admin_user.reload.role).to eq("admin")
       end
     end
   end
