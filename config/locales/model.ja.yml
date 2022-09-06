@@ -25,6 +25,12 @@ ja:
         email:                 メールアドレス
         password:              パスワード
         password_confirmation: パスワード確認
+        role:                  ユーザ区分
+  enums:
+    user:
+      role:
+        admin:   管理
+        general: 一般
   # 全てのモデルで共通して使用するattributes
   attributes:
     created_at: 作成日時

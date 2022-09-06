@@ -25,7 +25,6 @@ class User < ApplicationRecord
     admin:   0,
     general: 1
   }
-
   def activate
     update(activated: true, activated_at: Time.zone.now)
   end
