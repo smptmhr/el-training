@@ -3,7 +3,7 @@ module AdminHelper
     user = User.find(params[:id])
     admin_user_num = User.where(role: :general).size
 
-    return unless (admin_user_num == 1) && (user.role_admin?)
+    return unless (admin_user_num == 1) && user.role_admin?
 
     flash[:danger] = I18n.t 'admin_user_must_exist'
     redirect_to request.referer

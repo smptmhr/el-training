@@ -22,7 +22,7 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
 
   enum role: {
-    admin:   0,
+    admin: 0,
     general: 1
   }, _prefix: true
 
