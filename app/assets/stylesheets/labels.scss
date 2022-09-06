@@ -1,10 +1,14 @@
 .label-form{
     margin-top:    20px;
     margin-bottom: 20px;
-    .name_field{
-      width: 30%;
-    }
-    .item{
-      margin-right: 40px;
+    .form-items{
+      display: flex;
+      
+      .name_field{
+        width: 100%;
+      }
+      .item{
+        margin-right: 40px;
+      }
     }
   }
