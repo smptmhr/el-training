@@ -18,7 +18,7 @@ class AdminController < ApplicationController
     @user = User.find(params[:id])
 
     # 管理→一般 or 一般→管理
-    changed_role = (@user.admin? ? User.role[:general] : User.role[:admin])
+    changed_role = (@user.role_admin? ? User.roles[:general] : User.roles[:admin])
 
     if @user.update(role: changed_role)
       flash[:success] = I18n.t 'user_update_success'
@@ -32,7 +32,7 @@ class AdminController < ApplicationController
   private
 
   def admin_user?
-    return if current_user.admin?
+    return if current_user.role_admin?
 
     flash[:danger] = I18n.t 'permission_denied'
     redirect_to root_url

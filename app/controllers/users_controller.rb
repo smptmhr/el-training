@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 
     # 管理ユーザ → ユーザ管理一覧
     # 一般ユーザ → root_url
-    if current_user.admin?
+    if current_user.role_admin?
       redirect_to admin_index_url
     else
       redirect_to root_url
