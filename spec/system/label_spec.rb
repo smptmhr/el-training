@@ -129,21 +129,21 @@ RSpec.describe 'Labels', type: :system do
   describe 'ラベルによるタスク検索' do
     let!(:category) { create(:category, user:) }
     let!(:label) { create(:label, name: 'label', user:) }
-    let!(:task_1) { create(:task, name: 'task_1', category:, user:) }
-    let!(:task_2) { create(:task, name: 'task_2', category:, user:) }
+    let!(:task1) { create(:task, name: 'task1', category:, user:) }
+    let!(:task2) { create(:task, name: 'task2', category:, user:) }
     before do
       login_as(user)
-      create(:label_table, task: task_1, label:)
+      create(:label_table, task: task1, label:)
       click_on 'タスク一覧'
     end
 
     context 'ラベル名を選んで検索ボタンを押したとき' do
       it '該当するラベルを持つタスクのみが表示される' do
-        select  label.name, from: :label_id
+        select label.name, from: :label_id
         click_on 'ラベルで検索'
 
-        expect(page).to     have_content(task_1.name)
-        expect(page).not_to have_content(task_2.name)
+        expect(page).to     have_content(task1.name)
+        expect(page).not_to have_content(task2.name)
       end
     end
   end
