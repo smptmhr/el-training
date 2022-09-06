@@ -42,7 +42,7 @@ RSpec.describe 'admin page', type: :system do
         expect(page.accept_confirm).to eq '本当に削除しますか?'
 
         # 削除の成功のメッセージが表示される
-        expect(page).to     have_content('ユーザを削除しました')
+        expect(page).to have_content('ユーザを削除しました')
 
         # 削除されたユーザはadminページからも消える
         expect(page).not_to have_content("user_#{id}")
