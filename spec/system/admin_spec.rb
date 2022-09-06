@@ -4,7 +4,7 @@ RSpec.describe 'admin page', type: :system do
   let(:admin_user) {
     create(:user, name: 'admin',
                   email: 'admin@example.com',
-                  role: '管理')
+                  role: :admin)
   }
   before do
     5.times do |user_idx|
@@ -120,14 +120,14 @@ RSpec.describe 'admin page', type: :system do
         expect(page).to have_content('ユーザ情報を更新しました')
 
         # 管理ユーザに変更されている
-        expect(user.reload.role).to eq('管理')
+        expect(user.reload.role).to eq(:admin)
       end
     end
 
     context '管理ユーザが一人のとき' do
       it '管理ユーザ(自分)の区分を変更できない' do
         # 管理ユーザが一人であることを確認
-        admin_num = User.where(role: '管理').size
+        admin_num = User.where(role: :admin).size
         expect(admin_num).to eq(1)
 
         click_on admin_user.name
@@ -138,7 +138,7 @@ RSpec.describe 'admin page', type: :system do
         expect(page).to have_content('管理ユーザが0人になってしまうため、その操作はできません')
 
         # 管理ユーザのままである
-        expect(admin_user.reload.role).to eq('管理')
+        expect(admin_user.reload.role).to eq(:admin)
       end
     end
   end
