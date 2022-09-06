@@ -7,5 +7,6 @@ FactoryBot.define do
     necessary_days { 3 }
     progress       { '未着手' }
     priority       { '低' }
+    label          { nil }
   end
 end
