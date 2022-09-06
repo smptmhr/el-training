@@ -3,7 +3,6 @@ class AdminController < ApplicationController
   before_action :admin_user?
   before_action :admin_user_exist?, only: :update
 
-  include TasksHelper
   def index
     # preloadを使用してN+1問題に対応
     @users = User.preload(:categories, :tasks).all.order(:id)
