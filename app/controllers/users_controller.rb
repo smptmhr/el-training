@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i(edit update show destroy index)
+  before_action :logged_in_user, only: %i(edit update show destroy)
   before_action :check_user_permission, only: %i(edit update show)
   def new
     @user = User.new
@@ -7,10 +7,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-  end
-
-  def index
-    @users = User.all
   end
 
   def create
@@ -43,12 +39,21 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
 
+    # category has many tasks, dependent: :restrict_with_error につき
+    # タスクを持つカテゴリは削除できないため、タスクを先に削除する
+    @user.categories.each do |c|
+      c.task.destroy_all
+    end
+
     if @user.destroy
       flash[:success] = I18n.t 'user_delete_success'
     else
       flash[:danger] = I18n.t 'user_delete_failed'
     end
-    redirect_to users_url
+
+    # TODO: adminユーザでログインしてたらユーザ管理一覧に、
+    # TODO それ以外ならroot_urlにリダイレクト
+    redirect_to root_url
   end
 
   private
