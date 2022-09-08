@@ -23,6 +23,9 @@
           <span><%= link_to I18n.t('labels_index'), labels_url, class: "btn btn-primary" %></span>
           <span><%= link_to "マイページ", user_url(current_user), class: "btn btn-warning" %></span>
           <span><%= button_to "Log out", logout_path, method: :delete, class: "btn btn-danger" %></span>
+          <% if current_user.role_admin? %>
+            <span><%= link_to "ユーザ管理", admin_index_path, class: "btn btn-danger admin_index_link" %></span>
+          <% end %>
         </div>
       <% end %>
     </header>

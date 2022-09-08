@@ -5,6 +5,7 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">認証</th>
+      <th scope="col">ユーザ区分</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">カテゴリ数</th>
@@ -20,6 +21,7 @@
         <% else %>
           <td class="align-middle">ー</td>
         <% end %>
+        <td class="align-middle"><%= user.role_i18n %></td>
         <td class="align-middle"><%= link_to user.name, admin_path(user.id) %></td>
         <td class="align-middle"><%= user.email %></td>
         <td class="align-middle"><%= user.categories.size %></td>

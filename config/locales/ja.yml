@@ -28,12 +28,13 @@ ja:
   label_not_exist:      "該当するラベルが存在しません"
 
   # フラッシュメッセージ : ユーザ
-  user_create_success: "ユーザを作成しました"
-  user_create_failed:  "ユーザの作成に失敗しました"
-  user_update_success: "ユーザ情報を更新しました"
-  user_update_failed:  "ユーザの更新に失敗しました"
-  user_delete_success: "ユーザを削除しました"
-  user_delete_failed:  "ユーザの削除に失敗しました"
+  user_create_success:   "ユーザを作成しました"
+  user_create_failed:    "ユーザの作成に失敗しました"
+  user_update_success:   "ユーザ情報を更新しました"
+  user_update_failed:    "ユーザの更新に失敗しました"
+  user_delete_success:   "ユーザを削除しました"
+  user_delete_failed:    "ユーザの削除に失敗しました"
+  admin_user_must_exist: "管理ユーザが0人になってしまうため、その操作はできません"
 
   # ログイン
   login_success:             "ログインしました"
