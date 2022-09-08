@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: %i(edit update show destroy)
   before_action :check_user_permission, only: %i(edit update show)
+  before_action :admin_user_exist?, only: :destroy
   def new
     @user = User.new
   end
@@ -51,9 +52,13 @@ class UsersController < ApplicationController
       flash[:danger] = I18n.t 'user_delete_failed'
     end
 
-    # TODO: adminユーザでログインしてたらユーザ管理一覧に、
-    # TODO それ以外ならroot_urlにリダイレクト
-    redirect_to root_url
+    # 管理ユーザ → ユーザ管理一覧
+    # 一般ユーザ → root_url
+    if current_user.role_admin?
+      redirect_to admin_index_url
+    else
+      redirect_to root_url
+    end
   end
 
   private

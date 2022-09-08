@@ -22,3 +22,12 @@
                 priority: 0)
   end
 end
+
+admin_user = User.create(name: 'admin_user',
+                         email: 'admin@example.com',
+                         password: 'password',
+                         password_confirmation: 'password',
+                         activated: true,
+                         activated_at: Time.zone.now,
+                         role: :admin)
+Category.create(name: Category::DEFAULT_CREATED_CATEGORY, user: admin_user)
