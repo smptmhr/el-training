@@ -59,3 +59,17 @@ ja:
 
   # 確認メッセージ
   message_before_delete: '本当に削除しますか?'
+
+  # エラーページメッセージ
+  # 404
+  page_not_found: 'ページが見つかりませんでした。'
+  check_url:      'URLを確認してください。'
+  
+  # 500
+  internal_server_error: '内部サーバーエラー'
+  error_in_server:       'サーバー内部でエラーが発生しました。'
+  contact:               'お問い合わせ'
+
+  # 共通
+  back_to_top: 'トップページへ戻る'
+
