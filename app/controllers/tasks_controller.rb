@@ -33,7 +33,7 @@ class TasksController < ApplicationController
     current_filter_params
     filtered_tasks = searched_tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
-    update_label_filter
+    current_label_filter
     filtered_by_label = filtered_tasks.filter_by_label(params[:label_id])
 
     # タスクのソート(デフォルトは作成日の昇順)
@@ -117,7 +117,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def update_label_filter
+  def current_label_filter
     label = Label.find_by(id: params[:label_id])
     @filter_label = label&.name.presence || '選択してください'
   end
