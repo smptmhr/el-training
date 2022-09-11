@@ -23,7 +23,7 @@ class TasksController < ApplicationController
 
   def index
     # 現在ログイン中のユーザのタスクを取得
-    tasks = current_user.tasks.preload(:category).all # N+1対策でpreloadを使用
+    tasks = current_user.tasks.preload(:category, :labels).all # N+1対策でpreloadを使用
 
     # タスクの検索
     searched_tasks = tasks.search_task(params[:search], params[:search_option])
