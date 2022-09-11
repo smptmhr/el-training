@@ -64,6 +64,11 @@ ja:
   # 404
   page_not_found: 'ページが見つかりませんでした。'
   check_url:      'URLを確認してください。'
+
+  # 422
+  change_was_rejected:        '操作はキャンセルされました。'
+  you_NOT_have_access_rights: 'その操作に対する権限がありません。'
+
   
   # 500
   internal_server_error: '内部サーバーエラー'

@@ -35,6 +35,10 @@ class ApplicationController < ActionController::Base
   def render_404
     render 'error/404', status: :not_found
   end
+
+  def render_404
+    render 'error/404', status: :unprocessable_entity
+  end
  
   def render_500
     render 'error/500', status: :internal_server_error
