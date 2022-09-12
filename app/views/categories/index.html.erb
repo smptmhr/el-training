@@ -1,16 +1,15 @@
-<% provide(:page_title, Category.model_name.human) %>
+<% provide(:page_title, I18n.t('categories_index')) %>
 
 <div class = "container">
   <div class="category-form">
     <%= form_for(@category) do |f| %>
       <%= render 'shared/category_error_msg' %>
-      <div class = "row">
-        <%= f.label      :name %>
-      </div>
 
       <div class = "row">
-        <%= f.text_field :name, class: 'form-control name_field item' %>
-        <%= f.submit '作成', class: "btn btn-primary item" %>
+        <div class = "col-md-6 form-items">
+          <%= f.text_field :name, placeholder: "新規カテゴリ名", class: 'form-control name_field item' %>
+          <%= f.submit '作成', class: "btn btn-primary item" %>
+        </div>
       </div>
     <% end %>
   </div>

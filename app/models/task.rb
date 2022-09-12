@@ -1,6 +1,8 @@
 class Task < ApplicationRecord
   belongs_to :category
-  has_one    :user, through: :category
+  has_one    :user,         through: :category
+  has_many   :label_tables, dependent: :destroy
+  has_many   :labels,       through: :label_tables
 
   validates :name,           presence: true
   validates :start_date,     presence: true
@@ -25,6 +27,14 @@ class Task < ApplicationRecord
       all              # フィルタリングを行わない
     else
       where(priority:, progress:)
+    end
+  }
+
+  scope :filter_by_label, ->(label_id) {
+    if label_id.present?
+      joins(:labels).where(labels: { id: label_id })
+    else
+      all
     end
   }
 

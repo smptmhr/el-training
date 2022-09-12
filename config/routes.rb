@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :categories, only: %i(index create destroy edit update)
   resources :admin, only: %i(index show update)
   resources :account_activations, only: :edit
+  resources :labels, only: %i(index create destroy edit update)
 
   root 'sessions#new'
 
