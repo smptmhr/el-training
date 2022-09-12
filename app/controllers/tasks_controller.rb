@@ -23,7 +23,7 @@ class TasksController < ApplicationController
 
   def index
     # 現在ログイン中のユーザのタスクを取得
-    tasks = current_user.tasks.preload(:category).all # N+1対策でpreloadを使用
+    tasks = current_user.tasks.preload(:category, :labels).all # N+1対策でpreloadを使用
 
     # タスクの検索
     searched_tasks = tasks.search_task(params[:search], params[:search_option])
@@ -33,9 +33,12 @@ class TasksController < ApplicationController
     current_filter_params
     filtered_tasks = searched_tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
+    current_label_filter
+    filtered_by_label = filtered_tasks.filter_by_label(params[:label_id])
+
     # タスクのソート(デフォルトは作成日の昇順)
     current_sorting_params
-    sorted_tasks = filtered_tasks.order("#{@sort_by} #{@direction}")
+    sorted_tasks = filtered_by_label.order("#{@sort_by} #{@direction}")
 
     # ページネーション
     @tasks = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
@@ -79,7 +82,8 @@ class TasksController < ApplicationController
       :start_date,
       :necessary_days,
       :progress,
-      :priority
+      :priority,
+      { label_ids: [] }
     )
   end
 
@@ -111,6 +115,11 @@ class TasksController < ApplicationController
       @filter_priority = params.dig(:filter, :priority)
       @filter_progress = params.dig(:filter, :progress)
     end
+  end
+
+  def current_label_filter
+    label = Label.find_by(id: params[:label_id])
+    @filter_label = label&.name.presence || '選択してください'
   end
 
   def current_sorting_params

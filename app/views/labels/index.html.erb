@@ -1,0 +1,43 @@
+<% provide(:page_title, I18n.t('labels_index')) %>
+
+<div class = "container">
+  <div class="label-form">
+    <%= form_for(@label) do |f| %>
+
+      <div class="row">
+        <div class = "col-md-6 form-items">
+          <%= f.text_field :name, placeholder: "新規ラベル名", class: 'form-control name_field item' %>
+          <%= f.submit '作成', class: "btn btn-primary item" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class = "container">
+  <div class = "row">
+    <table class="table labels">
+      <thead>
+        <tr>
+          <th scope="col">ラベル名</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @labels.each do |l| %>
+          <tr>
+            <td class="align-middle"><%= l.name %></td>
+            <td class="align-middle">
+              <%= link_to '名前を変更', edit_label_path(l), class: "edit_label_#{l.id} btn btn-link"%>
+            </td>
+            <td class="align-middle">
+              <%= button_to '削除', l, method: :delete,class: "delete_label_#{l.id} btn btn-link",
+                          form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table> 
+  </div>
+</div>

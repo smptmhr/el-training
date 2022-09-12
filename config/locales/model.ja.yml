@@ -15,6 +15,8 @@ ja:
         priority:       重要度
         period_on_task: 取り掛かり期間
         created_date:   作成日
+        category:       カテゴリ
+        label:          ラベル
 
       category:
         name:           カテゴリ名
@@ -26,11 +28,16 @@ ja:
         password:              パスワード
         password_confirmation: パスワード確認
         role:                  ユーザ区分
+
+      label:
+        name: ラベル名
+
   enums:
     user:
       role:
         admin:   管理
         general: 一般
+
   # 全てのモデルで共通して使用するattributes
   attributes:
     created_at: 作成日時

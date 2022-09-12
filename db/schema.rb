@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_28_140143) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_31_091725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_140143) do
     t.bigint "user_id", null: false
     t.index ["name", "user_id"], name: "index_categories_on_name_and_user_id", unique: true
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "label_tables", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "label_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_label_tables_on_label_id"
+    t.index ["task_id"], name: "index_label_tables_on_task_id"
+  end
+
+  create_table "labels", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "user_id"], name: "index_labels_on_name_and_user_id", unique: true
+    t.index ["name"], name: "index_labels_on_name", unique: true
+    t.index ["user_id"], name: "index_labels_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -50,5 +69,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_140143) do
   end
 
   add_foreign_key "categories", "users"
+  add_foreign_key "label_tables", "labels"
+  add_foreign_key "label_tables", "tasks"
+  add_foreign_key "labels", "users"
   add_foreign_key "tasks", "categories"
 end

@@ -29,3 +29,9 @@ span {
     display: inline-block;
     width: 9em;
 }
+
+// エラー時に自動挿入されるクラス
+// 以下により、レイアウト崩れを防ぐ
+.field_with_errors {
+  display: contents;
+}
