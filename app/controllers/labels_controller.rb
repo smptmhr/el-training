@@ -38,7 +38,7 @@ class LabelsController < ApplicationController
       flash[:success] = I18n.t 'label_update_success'
       redirect_to labels_url
     else
-      flash[:danger] = I18n.t 'label_update_failed'
+      flash.now[:danger] = I18n.t 'label_update_failed'
       render :edit, status: :unprocessable_entity
     end
   end

@@ -1,9 +1,8 @@
 require 'rails_helper'
-# require 'webmock/rspec'
 
 RSpec.describe 'Categories', type: :system do
   include LoginSupport
-  
+
   describe 'エラーページ' do
     describe '404エラー' do
       context '存在しないURLにアクセスしたとき' do
@@ -15,13 +14,13 @@ RSpec.describe 'Categories', type: :system do
     end
 
     describe '500エラー' do
-      let!(:user) { create(:user) }
+      let(:user) { create(:user) }
+      before do
+        allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
+      end
       context 'HTTPステータス500を受け取ったとき' do
-        before do
-          allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
-        end
         it '500エラーページに遷移する' do
-          # ログインするとindexアクションが呼ばれる
+          # ログインページするとTasks#indexが呼ばれる
           login_as(user)
           expect(page).to have_content '500'
         end
