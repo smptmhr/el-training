@@ -1,0 +1,12 @@
+<body class="error-page">
+  <div class="dialog">
+    <div>
+    <h1>500</h1>
+    <p><%= I18n.t 'internal_server_error' %></p>
+    </div>
+    <p><%= I18n.t 'error_in_server' %></p>
+    <p><%= I18n.t 'contact' %> : el.task.management@gmail.com</p>
+  </div>
+
+  <%= link_to I18n.t('back_to_top'), root_url %></a>
+</body>

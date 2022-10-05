@@ -15,4 +15,8 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   delete '/admin',   to: 'users#destroy'
+
+  # 例外処理
+  get '*not_found', to: 'application#routing_error'
+  post '*not_found', to: 'application#routing_error'
 end
