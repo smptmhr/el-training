@@ -13,11 +13,10 @@ RSpec.describe 'Categories', type: :system do
       end
     end
 
-    # rubocop:disable RSpec/AnyInstance
     describe '500エラー' do
       let(:user) { create(:user) }
       before do
-        allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
+        allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception) # rubocop:disable RSpec/AnyInstance
       end
 
       context 'HTTPステータス500を受け取ったとき' do
@@ -28,6 +27,5 @@ RSpec.describe 'Categories', type: :system do
         end
       end
     end
-    # rubocop:enable RSpec/AnyInstance
   end
 end
